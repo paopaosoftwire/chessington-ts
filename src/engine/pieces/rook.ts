@@ -2,6 +2,7 @@ import Piece from './piece';
 import Player from '../player';
 import Board from '../board';
 import Square from "../square";
+import King from "./king";
 
 export default class Rook extends Piece {
     public constructor(player: Player) {
@@ -22,25 +23,49 @@ export default class Rook extends Piece {
 
         for (let row = currentRow - 1; row >= 0; row--){
             const newPos = Square.at(row, currentCol);
-            if (board.getPiece(newPos) !== undefined) break;
+            const possiblePiece = board.getPiece(newPos);
+            if (possiblePiece !== undefined) {
+                if (possiblePiece.player !== this.player && !(possiblePiece instanceof King)) {
+                    newPosition.push(newPos);
+                }
+                break;
+            }
             newPosition.push(newPos);
         }
 
         for (let row = currentRow + 1; row <= 7; row++){
             const newPos = Square.at(row, currentCol);
-            if (board.getPiece(newPos) !== undefined) break;
+            const possiblePiece = board.getPiece(newPos);
+            if (possiblePiece !== undefined) {
+                if (possiblePiece.player !== this.player && !(possiblePiece instanceof King)) {
+                    newPosition.push(newPos);
+                }
+                break;
+            }
             newPosition.push(newPos);
         }
 
         for (let col = currentCol - 1; col >= 0; col--){
             const newPos = Square.at(currentRow, col);
-            if (board.getPiece(newPos) !== undefined) break;
+            const possiblePiece = board.getPiece(newPos);
+            if (possiblePiece !== undefined) {
+                if (possiblePiece.player !== this.player && !(possiblePiece instanceof King)) {
+                    newPosition.push(newPos);
+                }
+                break;
+            }
             newPosition.push(newPos);
         }
 
         for (let col = currentCol + 1; col <= 7; col++){
             const newPos = Square.at(currentRow, col);
-            if (board.getPiece(newPos) !== undefined) break;
+            const possiblePiece = board.getPiece(newPos);
+            if (possiblePiece !== undefined) {
+                if (possiblePiece.player !== this.player && !(possiblePiece instanceof King)) {
+                    newPosition.push(newPos);
+                }
+                break;
+            }
             newPosition.push(newPos);
         }
 
