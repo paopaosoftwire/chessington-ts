@@ -25,7 +25,9 @@ export default class Bishop extends Piece {
             while (board.isInBoard(currentRow, currentCol)){
                 currentRow += factor[0];
                 currentCol += factor[1];
-                newPosition.push(Square.at(currentRow, currentCol));
+                const newPos = Square.at(currentRow, currentCol);
+                if (board.getPiece(newPos) !== undefined) break;
+                newPosition.push(newPos);
             }
         }
         return newPosition;
