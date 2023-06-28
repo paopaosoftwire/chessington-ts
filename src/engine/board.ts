@@ -41,7 +41,7 @@ export default class Board {
     }
 
     public isInBoard(row: Number, column: Number){
-        return row > 0 && column > 0 && row < 7 && column < 7;
+        return row >= 0 && column >= 0 && row <= 7 && column <= 7;
     }
 
     private createBoard() {

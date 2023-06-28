@@ -21,9 +21,8 @@ export default class Pawn extends Piece {
 
         const oneUp = Square.at(currentPosition.row + factor, currentPosition.col);
         const twoUp = Square.at(currentPosition.row + 2*factor, currentPosition.col);
-        if (board.getPiece(oneUp) === undefined) {
-
-            if (currentPosition.row === startRow && board.getPiece(twoUp) === undefined ) {
+        if (board.isInBoard(currentPosition.row + factor, currentPosition.col) && board.getPiece(oneUp) === undefined) {
+            if (board.isInBoard(currentPosition.row + 2*factor, currentPosition.col) && currentPosition.row === startRow && board.getPiece(twoUp) === undefined ) {
                 newPosition.push(twoUp);
             }
 

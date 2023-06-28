@@ -20,14 +20,14 @@ export default class Bishop extends Piece {
         const changeFactors = [[-1, -1], [-1, 1], [1, -1], [1, 1]];
 
         for (const factor of changeFactors){
-            let currentRow = currentPosition.row;
-            let currentCol = currentPosition.col;
+            let currentRow = currentPosition.row+factor[0];
+            let currentCol = currentPosition.col+factor[1];
             while (board.isInBoard(currentRow, currentCol)){
-                currentRow += factor[0];
-                currentCol += factor[1];
                 const newPos = Square.at(currentRow, currentCol);
                 if (board.getPiece(newPos) !== undefined) break;
                 newPosition.push(newPos);
+                currentRow += factor[0];
+                currentCol += factor[1];
             }
         }
         return newPosition;
