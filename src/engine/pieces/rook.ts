@@ -17,15 +17,31 @@ export default class Rook extends Piece {
     public helpGetAvailableMoves(currentPosition: Square, board:Board){
         let newPosition = [];
 
-        for (let column = 0; column < 8; column++){
-            if (column !== currentPosition.col){
-                newPosition.push(Square.at(currentPosition.row, column));
-            }
+        let currentRow = currentPosition.row;
+        let currentCol = currentPosition.col;
+
+        for (let row = currentRow - 1; row >= 0; row--){
+            const newPos = Square.at(row, currentCol);
+            if (board.getPiece(newPos) !== undefined) break;
+            newPosition.push(newPos);
         }
-        for (let row = 0; row < 8; row++){
-            if (row !== currentPosition.row){
-                newPosition.push(Square.at(row, currentPosition.col));
-            }
+
+        for (let row = currentRow + 1; row <= 7; row++){
+            const newPos = Square.at(row, currentCol);
+            if (board.getPiece(newPos) !== undefined) break;
+            newPosition.push(newPos);
+        }
+
+        for (let col = currentCol - 1; col >= 0; col--){
+            const newPos = Square.at(currentRow, col);
+            if (board.getPiece(newPos) !== undefined) break;
+            newPosition.push(newPos);
+        }
+
+        for (let col = currentCol + 1; col <= 7; col++){
+            const newPos = Square.at(currentRow, col);
+            if (board.getPiece(newPos) !== undefined) break;
+            newPosition.push(newPos);
         }
 
         return newPosition;
