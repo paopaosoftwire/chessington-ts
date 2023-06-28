@@ -184,4 +184,36 @@ describe('Pawn', () => {
 
         moves.should.not.deep.include(Square.at(4, 3));
     });
+
+    it('can en passant immediately after', () => {
+        const pawn = new Pawn(Player.BLACK);
+        const opposingPawn = new Pawn(Player.WHITE);
+        board.setPiece(Square.at(3, 4), pawn);
+        board.setPiece(Square.at(1,5), opposingPawn);
+
+        opposingPawn.moveTo(board, Square.at(3, 5));
+
+        const moves = pawn.getAvailableMoves(board);
+
+        moves.should.deep.include(Square.at(2, 5));
+    })
+
+    it('cannot en passant if other moves made in between', () => {
+        const pawn = new Pawn(Player.BLACK);
+        const pawn2 = new Pawn(Player.BLACK);
+        const opposingPawn = new Pawn(Player.WHITE);
+        const opposingPawn2 = new Pawn(Player.WHITE);
+        board.setPiece(Square.at(3, 4), pawn);
+        board.setPiece(Square.at(5, 7), pawn2);
+        board.setPiece(Square.at(1, 5), opposingPawn);
+        board.setPiece(Square.at(3, 1), opposingPawn2);
+
+        opposingPawn.moveTo(board, Square.at(3, 5));
+        pawn2.moveTo(board, Square.at(4, 7));
+        opposingPawn2.moveTo(board, Square.at(4,1));
+
+        const moves = pawn.getAvailableMoves(board);
+
+        moves.should.not.deep.include(Square.at(2,5));
+    })
 });
