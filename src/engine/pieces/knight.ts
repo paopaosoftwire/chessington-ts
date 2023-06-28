@@ -2,6 +2,7 @@ import Piece from './piece';
 import Player from '../player';
 import Board from '../board';
 import Square from "../square";
+import King from "./king";
 
 export default class Knight extends Piece {
     public constructor(player: Player) {
@@ -15,13 +16,18 @@ export default class Knight extends Piece {
         let currentRow = currentPosition.row;
         let currentCol = currentPosition.col;
 
-        const changeFactors = [[2,1],[2,-1],[1,2],[-1,2],[-2,1],[-2,-1],[-1,-2],[1,-2]];
+        const changeFactors = [[2, 1], [2, -1], [1, 2], [-1, 2], [-2, 1], [-2, -1], [-1, -2], [1, -2]];
 
-        for (const factor of changeFactors){
-            const newRow = currentRow+factor[0];
-            const newCol = currentCol+factor[1];
-            if (board.isInBoard(newRow, newCol)){
-                newPosition.push(Square.at(newRow, newCol));
+        for (const factor of changeFactors) {
+            const newRow = currentRow + factor[0];
+            const newCol = currentCol + factor[1];
+            if (board.isInBoard(newRow, newCol)) {
+                const newPos = Square.at(newRow, newCol);
+                const possiblePiece = board.getPiece(newPos);
+                if ((possiblePiece !== undefined && possiblePiece.player !== this.player && !(possiblePiece instanceof King))
+                    || (possiblePiece === undefined)) {
+                    newPosition.push(newPos);
+                }
             }
         }
 
