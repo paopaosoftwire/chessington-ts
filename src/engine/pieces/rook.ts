@@ -17,33 +17,20 @@ export default class Rook extends Piece {
 
     public helpGetAvailableMoves(currentPosition: Square, board:Board){
         let newPosition = [];
-
-        const currentRow = currentPosition.row;
-        const currentCol = currentPosition.col;
         const ourPlayer = this.player;
 
-        for (let row = currentRow - 1; row >= 0; row--){
-            const newPos = Square.at(row, currentCol);
-            if (checkPiece(newPos)) break;
-            newPosition.push(newPos);
-        }
+        const changeFactors = [[-1, 0], [0, -1], [1, 0], [0, 1]];
 
-        for (let row = currentRow + 1; row <= 7; row++){
-            const newPos = Square.at(row, currentCol);
-            if (checkPiece(newPos)) break;
-            newPosition.push(newPos);
-        }
-
-        for (let col = currentCol - 1; col >= 0; col--){
-            const newPos = Square.at(currentRow, col);
-            if (checkPiece(newPos)) break;
-            newPosition.push(newPos);
-        }
-
-        for (let col = currentCol + 1; col <= 7; col++){
-            const newPos = Square.at(currentRow, col);
-            if (checkPiece(newPos)) break;
-            newPosition.push(newPos);
+        for (const factor of changeFactors){
+            let currentRow = currentPosition.row+factor[0];
+            let currentCol = currentPosition.col+factor[1];
+            while (board.isInBoard(currentRow, currentCol)){
+                const newPos = Square.at(currentRow, currentCol);
+                if (checkPiece(newPos)) break;
+                newPosition.push(newPos);
+                currentRow += factor[0];
+                currentCol += factor[1];
+            }
         }
 
         function checkPiece(position: Square){
