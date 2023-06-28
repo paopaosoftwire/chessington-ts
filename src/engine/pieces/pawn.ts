@@ -11,17 +11,19 @@ export default class Pawn extends Piece {
     public getAvailableMoves(board: Board) {
         const currentPosition = board.findPiece(this); // returns Square.at(row, col)
         let newPosition = [];
-        if (this.player === Player.WHITE) {
-            if (currentPosition.row === 1){
-                newPosition.push(Square.at(currentPosition.row + 2, currentPosition.col));
-            }
-            newPosition.push(Square.at(currentPosition.row + 1, currentPosition.col));
-        } else {
-            if (currentPosition.row === 6){
-                newPosition.push(Square.at(currentPosition.row - 2, currentPosition.col));
-            }
-            newPosition.push(Square.at(currentPosition.row - 1, currentPosition.col));
+        let factor = 1;
+        let startPosition = 1;
+
+        if (this.player === Player.BLACK) {
+            factor = -1;
+            startPosition = 6;
         }
+
+        if (currentPosition.row === startPosition) {
+            newPosition.push(Square.at(currentPosition.row + 2*factor, currentPosition.col));
+        }
+        newPosition.push(Square.at(currentPosition.row + factor, currentPosition.col));
+
         return newPosition;
     }
 }
