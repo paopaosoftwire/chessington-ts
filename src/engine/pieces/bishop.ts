@@ -12,34 +12,18 @@ export default class Bishop extends Piece {
         const currentPosition = board.findPiece(this); // returns Square.at(row, col)
         let newPosition = [];
 
-        let currentRow = currentPosition.row;
-        let currentCol = currentPosition.col;
+        let changeFactors = [[-1, -1], [-1, 1], [1, -1], [1, 1]];
 
-        while (currentRow > 0 && currentCol > 0){
-            newPosition.push(Square.at(--currentRow, --currentCol));
+        for (const factor of changeFactors){
+            let currentRow = currentPosition.row;
+            let currentCol = currentPosition.col;
+            const limits = () => currentRow > 0 && currentCol > 0 && currentRow < 7 && currentCol < 7;
+            while (limits()){
+                currentRow += factor[0];
+                currentCol += factor[1];
+                newPosition.push(Square.at(currentRow, currentCol));
+            }
         }
-
-        currentRow = currentPosition.row;
-        currentCol = currentPosition.col;
-
-        while (currentRow > 0 && currentCol < 7){
-            newPosition.push(Square.at(--currentRow, ++currentCol));
-        }
-
-        currentRow = currentPosition.row;
-        currentCol = currentPosition.col;
-
-        while (currentRow < 7 && currentCol > 0){
-            newPosition.push(Square.at(++currentRow, --currentCol));
-        }
-
-        currentRow = currentPosition.row;
-        currentCol = currentPosition.col;
-
-        while (currentRow < 7 && currentCol < 7){
-            newPosition.push(Square.at(++currentRow, ++currentCol));
-        }
-
         return newPosition;
     }
 }

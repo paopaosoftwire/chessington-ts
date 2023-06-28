@@ -11,6 +11,7 @@ export default class Rook extends Piece {
     public getAvailableMoves(board: Board) {
         const currentPosition = board.findPiece(this);
         let newPosition = [];
+
         for (let column = 0; column < 8; column++){
             if (column !== currentPosition.col){
                 newPosition.push(Square.at(currentPosition.row, column));
@@ -21,6 +22,7 @@ export default class Rook extends Piece {
                 newPosition.push(Square.at(row, currentPosition.col));
             }
         }
+
         return newPosition;
     }
 }
