@@ -2,6 +2,7 @@ import Piece from './piece';
 import Player from '../player';
 import Board from '../board';
 import Square from "../square";
+import King from "./king";
 
 export default class Bishop extends Piece {
     public constructor(player: Player) {
@@ -16,6 +17,7 @@ export default class Bishop extends Piece {
 
     public helpGetAvailableMoves(currentPosition: Square, board:Board){
         let newPosition = [];
+        const ourPlayer = this.player;
 
         const changeFactors = [[-1, -1], [-1, 1], [1, -1], [1, 1]];
 
@@ -24,12 +26,24 @@ export default class Bishop extends Piece {
             let currentCol = currentPosition.col+factor[1];
             while (board.isInBoard(currentRow, currentCol)){
                 const newPos = Square.at(currentRow, currentCol);
-                if (board.getPiece(newPos) !== undefined) break;
+                if (checkPiece(newPos)) break;
                 newPosition.push(newPos);
                 currentRow += factor[0];
                 currentCol += factor[1];
             }
         }
+
+        function checkPiece(position: Square){
+            const possiblePiece = board.getPiece(position);
+            if (possiblePiece !== undefined) {
+                if (possiblePiece.player !== ourPlayer && !(possiblePiece instanceof King)) {
+                    newPosition.push(position);
+                }
+                return true;
+            }
+            return false;
+        }
+
         return newPosition;
     }
 }
