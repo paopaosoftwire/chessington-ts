@@ -18,3 +18,5 @@ export default class Piece {
         board.movePiece(currentSquare, newSquare);
     }
 }
+
+//TODO: Add checkPiece function with less dependencies (i.e. newPosition array)
