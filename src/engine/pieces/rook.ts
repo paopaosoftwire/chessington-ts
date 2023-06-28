@@ -18,57 +18,44 @@ export default class Rook extends Piece {
     public helpGetAvailableMoves(currentPosition: Square, board:Board){
         let newPosition = [];
 
-        let currentRow = currentPosition.row;
-        let currentCol = currentPosition.col;
+        const currentRow = currentPosition.row;
+        const currentCol = currentPosition.col;
+        const ourPlayer = this.player;
 
         for (let row = currentRow - 1; row >= 0; row--){
             const newPos = Square.at(row, currentCol);
-            const possiblePiece = board.getPiece(newPos);
-            if (possiblePiece !== undefined) {
-                if (possiblePiece.player !== this.player && !(possiblePiece instanceof King)) {
-                    newPosition.push(newPos);
-                }
-                break;
-            }
+            if (checkPiece(newPos)) break;
             newPosition.push(newPos);
         }
 
         for (let row = currentRow + 1; row <= 7; row++){
             const newPos = Square.at(row, currentCol);
-            const possiblePiece = board.getPiece(newPos);
-            if (possiblePiece !== undefined) {
-                if (possiblePiece.player !== this.player && !(possiblePiece instanceof King)) {
-                    newPosition.push(newPos);
-                }
-                break;
-            }
+            if (checkPiece(newPos)) break;
             newPosition.push(newPos);
         }
 
         for (let col = currentCol - 1; col >= 0; col--){
             const newPos = Square.at(currentRow, col);
-            const possiblePiece = board.getPiece(newPos);
-            if (possiblePiece !== undefined) {
-                if (possiblePiece.player !== this.player && !(possiblePiece instanceof King)) {
-                    newPosition.push(newPos);
-                }
-                break;
-            }
+            if (checkPiece(newPos)) break;
             newPosition.push(newPos);
         }
 
         for (let col = currentCol + 1; col <= 7; col++){
             const newPos = Square.at(currentRow, col);
-            const possiblePiece = board.getPiece(newPos);
-            if (possiblePiece !== undefined) {
-                if (possiblePiece.player !== this.player && !(possiblePiece instanceof King)) {
-                    newPosition.push(newPos);
-                }
-                break;
-            }
+            if (checkPiece(newPos)) break;
             newPosition.push(newPos);
         }
 
+        function checkPiece(position: Square){
+            const possiblePiece = board.getPiece(position);
+            if (possiblePiece !== undefined) {
+                if (possiblePiece.player !== ourPlayer && !(possiblePiece instanceof King)) {
+                    newPosition.push(position);
+                }
+                return true;
+            }
+            return false;
+        }
         return newPosition;
     }
 }
