@@ -15,43 +15,16 @@ export default class Knight extends Piece {
         let currentRow = currentPosition.row;
         let currentCol = currentPosition.col;
 
-        if (currentRow+2 <= 7){
-            if (currentCol-1 >= 0){
-                newPosition.push(Square.at(currentRow+2, currentCol-1));
-            }
-            if (currentCol+1 <= 7){
-                newPosition.push(Square.at(currentRow+2, currentCol+1));
-            }
-        }
+        const changeFactors = [[2,1],[2,-1],[1,2],[-1,2],[-2,1],[-2,-1],[-1,-2],[1,-2]];
 
-        if (currentRow-2 >= 0){
-            if (currentCol-1 >= 0){
-                newPosition.push(Square.at(currentRow-2, currentCol-1));
-            }
-            if (currentCol+1 <= 7){
-                newPosition.push(Square.at(currentRow-2, currentCol+1));
-            }
-        }
-
-        if (currentCol+2 <= 7){
-            if (currentRow-1 >= 0){
-                newPosition.push(Square.at(currentRow-1, currentCol+2));
-            }
-            if (currentRow+1 <= 7){
-                newPosition.push(Square.at(currentRow+1, currentCol+2));
-            }
-        }
-
-        if (currentCol-2 >= 0){
-            if (currentRow-1 >= 0){
-                newPosition.push(Square.at(currentRow-1, currentCol-2));
-            }
-            if (currentRow+1 <= 7){
-                newPosition.push(Square.at(currentRow+1, currentCol-2));
+        for (const factor of changeFactors){
+            const newRow = currentRow+factor[0];
+            const newCol = currentCol+factor[1];
+            if (board.isInBoard(newRow, newCol)){
+                newPosition.push(Square.at(newRow, newCol));
             }
         }
 
         return newPosition;
-
     }
 }

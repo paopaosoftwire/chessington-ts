@@ -40,6 +40,10 @@ export default class Board {
         }
     }
 
+    public isInBoard(row: Number, column: Number){
+        return row > 0 && column > 0 && row < 7 && column < 7;
+    }
+
     private createBoard() {
         const board = new Array(GameSettings.BOARD_SIZE);
         for (let i = 0; i < board.length; i++) {

@@ -11,19 +11,18 @@ export default class Bishop extends Piece {
     public getAvailableMoves(board: Board) {
         const currentPosition = board.findPiece(this); // returns Square.at(row, col)
 
-        return this.helpGetAvailableMoves(currentPosition);
+        return this.helpGetAvailableMoves(currentPosition, board);
     }
 
-    public helpGetAvailableMoves(currentPosition: Square){
+    public helpGetAvailableMoves(currentPosition: Square, board:Board){
         let newPosition = [];
 
-        let changeFactors = [[-1, -1], [-1, 1], [1, -1], [1, 1]];
+        const changeFactors = [[-1, -1], [-1, 1], [1, -1], [1, 1]];
 
         for (const factor of changeFactors){
             let currentRow = currentPosition.row;
             let currentCol = currentPosition.col;
-            const limits = () => currentRow > 0 && currentCol > 0 && currentRow < 7 && currentCol < 7;
-            while (limits()){
+            while (board.isInBoard(currentRow, currentCol)){
                 currentRow += factor[0];
                 currentCol += factor[1];
                 newPosition.push(Square.at(currentRow, currentCol));

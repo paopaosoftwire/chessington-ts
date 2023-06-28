@@ -16,8 +16,8 @@ export default class Queen extends Piece {
         const dummyBishop = new Bishop(this.player);
         const dummyRook = new Rook(this.player);
 
-        const diagonalMoves = dummyBishop.helpGetAvailableMoves(currentPosition);
-        const lateralMoves = dummyRook.helpGetAvailableMoves(currentPosition);
+        const diagonalMoves = dummyBishop.helpGetAvailableMoves(currentPosition, board);
+        const lateralMoves = dummyRook.helpGetAvailableMoves(currentPosition, board);
 
         return diagonalMoves.concat(lateralMoves);
     }
