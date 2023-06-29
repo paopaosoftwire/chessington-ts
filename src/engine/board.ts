@@ -5,6 +5,7 @@ import Piece from './pieces/piece';
 
 export default class Board {
     public currentPlayer: Player;
+    public previousMove: (Square | undefined) = undefined;
     private readonly board: (Piece | undefined)[][];
 
     public constructor(currentPlayer?: Player) {
@@ -37,6 +38,7 @@ export default class Board {
             this.setPiece(toSquare, movingPiece);
             this.setPiece(fromSquare, undefined);
             this.currentPlayer = (this.currentPlayer === Player.WHITE ? Player.BLACK : Player.WHITE);
+            this.previousMove = toSquare;
         }
     }
 

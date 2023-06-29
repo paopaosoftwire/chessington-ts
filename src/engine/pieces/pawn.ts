@@ -57,15 +57,11 @@ export default class Pawn extends Piece {
         for (const direction of [1,-1]){ 
             if (currentPosition.row === 7-startRow-factor*2){  
                 if (board.isInBoard(currentPosition.row, currentPosition.col+direction)){ 
-                    const possibleOpponentPiece = board.getPiece(Square.at(currentPosition.row, currentPosition.col+direction)); 
-                    console.log("no hi");
-                    
-                    if (possibleOpponentPiece !== undefined && possibleOpponentPiece.player != this.player && possibleOpponentPiece instanceof Pawn){
-                        console.log("hi");
-                        
+                    const possibleOpponentPiece = board.getPiece(Square.at(currentPosition.row, currentPosition.col+direction));                     
+                    if (possibleOpponentPiece !== undefined && possibleOpponentPiece.player != this.player && possibleOpponentPiece instanceof Pawn){                        
                         const newPos = Square.at(currentPosition.row+factor, currentPosition.col+direction);  
                         const targetSquare = board.getPiece(newPos); 
-                        if (targetSquare === undefined){ 
+                        if (targetSquare === undefined && Square.at(currentPosition.row, currentPosition.col+direction).equals(board.previousMove)){
                             newPosition.push(newPos);
                         }
                     }
