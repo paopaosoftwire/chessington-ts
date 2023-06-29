@@ -2,8 +2,13 @@ import Piece from './piece';
 import Player from '../player';
 import Board from '../board';
 import Square from "../square";
+import Rook from "./rook";
+
 
 export default class King extends Piece {
+
+    public originalPosition = (this.player === Player.WHITE)? Square.at(0, 4) : Square.at(7,4);
+
     public constructor(player: Player) {
         super(player);
     }
@@ -28,6 +33,18 @@ export default class King extends Piece {
             }
         }
 
+        // Castling 
+        
+        if (board.findPiece(this).equals(this.originalPosition) && !this.MOVED){
+            
+            for(const rookPos of board.rookInStartingPosition()){
+                if (rookPos.col > this.originalPosition.col){
+                    newPosition.push(Square.at(this.originalPosition.row, this.originalPosition.col+2));
+                } else {
+                    newPosition.push(Square.at(this.originalPosition.row, this.originalPosition.col-2));
+                }
+            }
+        }
         return newPosition;
     }
 }

@@ -3,6 +3,8 @@ import GameSettings from './gameSettings';
 import Square from './square';
 import Piece from './pieces/piece';
 import King from './pieces/king';
+import Rook from './pieces/rook';
+
 
 export default class Board {
     public currentPlayer: Player;
@@ -57,6 +59,23 @@ export default class Board {
     public squareHasCapturablePiece(position: Square){
         const possiblePiece = this.getPiece(position);
         return possiblePiece!.player !== this.currentPlayer && !(possiblePiece instanceof King);
+    }
+
+    public rookInStartingPosition(){
+        const allRooksInStartingPosition = [];
+
+        if (this.currentPlayer === Player.WHITE){
+            for (const square of [Square.at(0,0), Square.at(0,7)]){
+                const piece = this.getPiece(square);
+                if (piece instanceof Rook && piece.player === this.currentPlayer && !piece.MOVED) allRooksInStartingPosition.push(square);
+            }
+        } else {
+            for (const square of [Square.at(7,0), Square.at(7,7)]){
+                const piece = this.getPiece(square);
+                if (piece instanceof Rook && piece.player === this.currentPlayer && !piece.MOVED) allRooksInStartingPosition.push(square);
+            }
+        }
+        return allRooksInStartingPosition;
     }
 
     private createBoard() {

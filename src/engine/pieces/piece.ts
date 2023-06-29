@@ -5,7 +5,7 @@ import King from "./king";
 
 export default class Piece {
     public player: Player;
-    public MOVED: boolean = true;
+    public MOVED: boolean = false;
 
     public constructor(player: Player) {
         this.player = player;
