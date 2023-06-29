@@ -39,9 +39,24 @@ export default class King extends Piece {
             
             for(const rookPos of board.rookInStartingPosition()){
                 if (rookPos.col > this.originalPosition.col){
-                    newPosition.push(Square.at(this.originalPosition.row, this.originalPosition.col+2));
+                    const rook = board.getPiece(rookPos) as Rook;
+                    const rookMoves = rook.getAvailableMoves(board);
+                    console.log(rookMoves);
+                    console.log(Square.at(this.originalPosition.row, this.originalPosition.col + 1));
+                    
+                    for(const targetSquare of rookMoves) {
+                        if (targetSquare.equals(Square.at(this.originalPosition.row, this.originalPosition.col + 1))) {
+                            newPosition.push(Square.at(this.originalPosition.row, this.originalPosition.col+2));
+                        }
+                    }
                 } else {
-                    newPosition.push(Square.at(this.originalPosition.row, this.originalPosition.col-2));
+                    const rook = board.getPiece(rookPos) as Rook;
+                    const rookMoves = rook.getAvailableMoves(board);
+                    for(const targetSquare of rookMoves) {
+                        if (targetSquare.equals(Square.at(this.originalPosition.row, this.originalPosition.col - 1))) {
+                            newPosition.push(Square.at(this.originalPosition.row, this.originalPosition.col-2));
+                        }
+                    }
                 }
             }
         }

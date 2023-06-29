@@ -8,13 +8,13 @@ export default class Rook extends Piece {
         super(player);
     }
 
-    public getAvailableMoves(board: Board) {
+    public getAvailableMoves(board: Board): Square[] {
         const currentPosition = board.findPiece(this);
 
         return this.helpGetAvailableMoves(currentPosition, board);
     }
 
-    public helpGetAvailableMoves(currentPosition: Square, board:Board){
+    public helpGetAvailableMoves(currentPosition: Square, board:Board): Square[] {
         let newPosition = [];
         const ourPlayer = this.player;
 
