@@ -11,7 +11,7 @@ export default class Square {
         return new Square(row, col);
     }
 
-    public equals(otherSquare: Square | undefined) {
+    public equals(otherSquare: Square) {
         return !!otherSquare && this.row === otherSquare.row && this.col === otherSquare.col;
     }
 

@@ -61,14 +61,28 @@ export default class Pawn extends Piece {
                     if (possibleOpponentPiece !== undefined && possibleOpponentPiece.player != this.player && possibleOpponentPiece instanceof Pawn){                        
                         const newPos = Square.at(currentPosition.row+factor, currentPosition.col+direction);  
                         const targetSquare = board.getPiece(newPos); 
-                        if (targetSquare === undefined && Square.at(currentPosition.row, currentPosition.col+direction).equals(board.previousMove)){
-                            newPosition.push(newPos);
+                        if (targetSquare === undefined && 
+                            Square.at(currentPosition.row+2*factor, currentPosition.col+direction).equals(board.previousMove[0]) &&
+                            Square.at(currentPosition.row, currentPosition.col+direction).equals(board.previousMove[1])){
+                                newPosition.push(newPos);
+                            // board.setPiece(Square.at(currentPosition.row, currentPosition.col+direction), undefined);
                         }
                     }
                 }
             }
         }
+        // END
 
         return newPosition;
     }
+
+    moveTo(board:Board, square:Square){
+        if (board.findPiece(this).col !== square.col && board.getPiece(square) === undefined){
+            const change = (this.player === Player.WHITE) ? -1 : 1;
+            const capturedSquare = Square.at(square.row+change, square.col);
+            board.setPiece(capturedSquare, undefined);
+        }
+        super.moveTo(board, square);
+    }
+    
 }
