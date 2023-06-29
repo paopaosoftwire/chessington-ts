@@ -26,7 +26,7 @@
 4. If intermediary move contains a check, then castling is not allowed
 5. If currently in check, castling not allowed 
 6. If all tests pass, update available moves for King 
-7. Override moveTo in King (treat Castling as a King move): 
+7. Override moveTo in King (note that Castling is both a King and Rook move, but is contained inside Rook): 
     - check if castling is an available move, then update both King and Rook positions
 
 ### Pawn Promotion
