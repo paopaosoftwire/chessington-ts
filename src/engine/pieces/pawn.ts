@@ -2,7 +2,8 @@ import Piece from './piece';
 import Player from '../player';
 import Board from '../board';
 import Square from "../square";
-import King from "./king";
+import Queen from "./queen";
+
 
 export default class Pawn extends Piece {
     public constructor(player: Player) {
@@ -69,12 +70,18 @@ export default class Pawn extends Piece {
     }
 
     moveTo(board:Board, square:Square){
+        // Check for En Passant
         if (board.findPiece(this).col !== square.col && board.getPiece(square) === undefined){
             const change = (this.player === Player.WHITE) ? -1 : 1;
             const capturedSquare = Square.at(square.row+change, square.col);
             board.setPiece(capturedSquare, undefined);
         }
+
+        // Normal move to
         super.moveTo(board, square);
+
+        // Check for Promotion
+        if (square.row == 0 || square.row == 7) board.setPiece(square, new Queen(this.player));
     }
     
 }
