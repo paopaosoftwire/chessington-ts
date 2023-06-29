@@ -90,5 +90,5 @@ describe('Rook', () => {
         moves.should.not.deep.include(Square.at(4, 6));
     });
 
-    // add castling tests 
+    // add castling tests (If king castles, then rook automatically moves too; vice versa)
 });
