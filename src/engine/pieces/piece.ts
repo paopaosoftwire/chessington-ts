@@ -5,6 +5,7 @@ import King from "./king";
 
 export default class Piece {
     public player: Player;
+    public MOVED: boolean = true;
 
     public constructor(player: Player) {
         this.player = player;
@@ -17,6 +18,7 @@ export default class Piece {
     public moveTo(board: Board, newSquare: Square) {
         const currentSquare = board.findPiece(this);
         board.movePiece(currentSquare, newSquare);
+        if (!this.MOVED) this.MOVED = true;
     }
 
 }

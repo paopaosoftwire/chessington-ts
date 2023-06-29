@@ -9,7 +9,7 @@
 1. Refactored isInBoard
 2. Refactored Pawn
 3. Refactored individual 
-4. 
+4. Pawn Promotion
 
 
 
