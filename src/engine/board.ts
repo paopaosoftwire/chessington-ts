@@ -40,7 +40,7 @@ export default class Board {
         }
     }
 
-    public isInBoard(row: Number, column: Number){
+    public isInBoard(row: number, column: number){
         return row >= 0 && column >= 0 && row <= 7 && column <= 7;
     }
 

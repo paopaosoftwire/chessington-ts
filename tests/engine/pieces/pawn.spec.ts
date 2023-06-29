@@ -90,12 +90,16 @@ describe('Pawn', () => {
             board.setPiece(Square.at(4, 4), pawn);
             board.setPiece(Square.at(6, 5), opposingPawn);
 
+            board.currentPlayer = Player.BLACK;
             opposingPawn.moveTo(board, Square.at(4, 5));
 
+            board.currentPlayer = Player.WHITE;
             const moves = pawn.getAvailableMoves(board);
 
             moves.should.deep.include(Square.at(5, 5));
         })
+
+        // TODO: Add test for no longer piece after en passanted
 
         it('cannot en passant if other moves made in between', () => {
             const pawn = new Pawn(Player.WHITE);
@@ -107,13 +111,19 @@ describe('Pawn', () => {
             board.setPiece(Square.at(6, 5), opposingPawn);
             board.setPiece(Square.at(5, 7), opposingPawn2);
 
+            board.currentPlayer = Player.BLACK;
             opposingPawn.moveTo(board, Square.at(4, 5));
+
+            board.currentPlayer = Player.WHITE;
             pawn2.moveTo(board, Square.at(4, 1));
+
+            board.currentPlayer = Player.BLACK;
             opposingPawn2.moveTo(board, Square.at(4,7));
 
+            board.currentPlayer = Player.WHITE;
             const moves = pawn.getAvailableMoves(board);
 
-            moves.should.not.deep.include(Square.at(5,3));
+            moves.should.not.deep.include(Square.at(5,5));
         })
     });
 
@@ -193,15 +203,17 @@ describe('Pawn', () => {
 
             moves.should.not.deep.include(Square.at(3, 3));
         });
-        
+
         it('can en passant immediately after', () => {
             const pawn = new Pawn(Player.BLACK);
             const opposingPawn = new Pawn(Player.WHITE);
             board.setPiece(Square.at(3, 4), pawn);
             board.setPiece(Square.at(1,5), opposingPawn);
-    
+
+            board.currentPlayer = Player.WHITE;
             opposingPawn.moveTo(board, Square.at(3, 5));
     
+            board.currentPlayer = Player.BLACK;
             const moves = pawn.getAvailableMoves(board);
     
             moves.should.deep.include(Square.at(2, 5));
@@ -217,10 +229,16 @@ describe('Pawn', () => {
             board.setPiece(Square.at(1, 5), opposingPawn);
             board.setPiece(Square.at(3, 1), opposingPawn2);
     
+            board.currentPlayer = Player.WHITE;
             opposingPawn.moveTo(board, Square.at(3, 5));
+
+            board.currentPlayer = Player.BLACK;
             pawn2.moveTo(board, Square.at(4, 7));
+
+            board.currentPlayer = Player.WHITE;
             opposingPawn2.moveTo(board, Square.at(4,1));
     
+            board.currentPlayer = Player.BLACK;
             const moves = pawn.getAvailableMoves(board);
     
             moves.should.not.deep.include(Square.at(2,5));
