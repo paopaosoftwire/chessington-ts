@@ -20,8 +20,8 @@ export default class King extends Piece {
         for (const factor of changeFactors){
             const newRow = currentRow+factor[0];
             const newCol = currentCol+factor[1];
-            if (board.isInBoard(newRow, newCol)){
-                const newPos = Square.at(newRow, newCol);
+            const newPos = Square.at(newRow, newCol);
+            if (board.isInBoard(newPos)){
                 const possiblePiece = board.getPiece(newPos);
                 if ((possiblePiece !== undefined && possiblePiece.player !== this.player && !(possiblePiece instanceof King))
                     || (possiblePiece === undefined)) {

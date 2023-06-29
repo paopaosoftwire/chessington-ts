@@ -24,12 +24,14 @@ export default class Bishop extends Piece {
         for (const factor of changeFactors){
             let currentRow = currentPosition.row+factor[0];
             let currentCol = currentPosition.col+factor[1];
-            while (board.isInBoard(currentRow, currentCol)){
-                const newPos = Square.at(currentRow, currentCol);
+            let newPos = Square.at(currentRow, currentCol);
+            while (board.isInBoard(newPos)){
+                // const newPos = Square.at(currentRow, currentCol);
                 if (checkPiece(newPos)) break;
                 newPosition.push(newPos);
                 currentRow += factor[0];
                 currentCol += factor[1];
+                newPos = Square.at(currentRow, currentCol);
             }
         }
 

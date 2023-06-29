@@ -18,11 +18,11 @@ export default class Knight extends Piece {
 
         const changeFactors = [[2, 1], [2, -1], [1, 2], [-1, 2], [-2, 1], [-2, -1], [-1, -2], [1, -2]];
 
-        for (const factor of changeFactors) {
-            const newRow = currentRow + factor[0];
-            const newCol = currentCol + factor[1];
-            if (board.isInBoard(newRow, newCol)) {
-                const newPos = Square.at(newRow, newCol);
+        for (const factor of changeFactors){
+            const newRow = currentRow+factor[0];
+            const newCol = currentCol+factor[1];
+            const newPos = Square.at(newRow, newCol);
+            if (board.isInBoard(newPos)){
                 const possiblePiece = board.getPiece(newPos);
                 if ((possiblePiece !== undefined && possiblePiece.player !== this.player && !(possiblePiece instanceof King))
                     || (possiblePiece === undefined)) {
@@ -30,7 +30,6 @@ export default class Knight extends Piece {
                 }
             }
         }
-
         return newPosition;
     }
 }

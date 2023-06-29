@@ -42,7 +42,9 @@ export default class Board {
         }
     }
 
-    public isInBoard(row: number, column: number){
+    public isInBoard(square: Square){
+        const row = square.row;
+        const column = square.col;
         return row >= 0 && column >= 0 && row <= 7 && column <= 7;
     }
 
