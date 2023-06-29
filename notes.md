@@ -4,6 +4,13 @@
 2. Write Repeated Code
 3. Write Remaining Functionalities (RED-GREEN-REFACTOR)
 
+# Done
+
+1. Refactored isInBoard
+2. Refactored Pawn
+3. Refactored individual 
+4. 
+
 
 
 ## Remaining functionalities 

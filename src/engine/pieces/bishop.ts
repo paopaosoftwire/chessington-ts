@@ -26,7 +26,6 @@ export default class Bishop extends Piece {
             let currentCol = currentPosition.col+factor[1];
             let newPos = Square.at(currentRow, currentCol);
             while (board.isInBoard(newPos)){
-                // const newPos = Square.at(currentRow, currentCol);
                 if (checkPiece(newPos)) break;
                 newPosition.push(newPos);
                 currentRow += factor[0];
@@ -36,9 +35,8 @@ export default class Bishop extends Piece {
         }
 
         function checkPiece(position: Square){
-            const possiblePiece = board.getPiece(position);
-            if (possiblePiece !== undefined) {
-                if (possiblePiece.player !== ourPlayer && !(possiblePiece instanceof King)) {
+            if (board.squareIsOccupied(position)){
+                if (board.squareHasCapturablePiece(position)){
                     newPosition.push(position);
                 }
                 return true;

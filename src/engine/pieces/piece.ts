@@ -19,21 +19,5 @@ export default class Piece {
         board.movePiece(currentSquare, newSquare);
     }
 
-    //TODO: Add checkPiece function with less dependencies (i.e. newPosition array)
-
-    // public canCapture(possiblePiece: Piece) {
-    //     return (possiblePiece.player !== this.player && !(possiblePiece instanceof King))
-    // }
-    //
-    // public checkPiece(board: Board, position: Square, arrayToUpdate: Square[]) {
-    //     const possiblePiece = board.getPiece(position);
-    //     if (possiblePiece !== undefined) {
-    //         if (this.canCapture(possiblePiece)) {
-    //             arrayToUpdate.push(position)
-    //         }
-    //         return [true, arrayToUpdate]
-    //     }
-    //     return [false, arrayToUpdate]
-    // }
 }
 

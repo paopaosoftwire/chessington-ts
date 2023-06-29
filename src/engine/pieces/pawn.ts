@@ -39,10 +39,8 @@ export default class Pawn extends Piece {
 
         for (const columnChange of leftRight){
             const newPos = Square.at(currentPosition.row + factor, currentPosition.col + columnChange);
-
             if (board.isInBoard(newPos)) {
-                const upLeftPiece = board.getPiece(newPos);
-                if (upLeftPiece !== undefined && upLeftPiece.player !== this.player && !(upLeftPiece instanceof King)) {
+                if (board.squareIsOccupied(newPos) && board.squareHasCapturablePiece(newPos)){
                     newPosition.push(newPos);
                 }
             }
@@ -57,9 +55,8 @@ export default class Pawn extends Piece {
                     const possibleOpponentPiece = board.getPiece(possibleOpponenetSquare);                     
                     if (possibleOpponentPiece !== undefined && possibleOpponentPiece.player != this.player && possibleOpponentPiece instanceof Pawn){                        
                         const newPos = Square.at(currentPosition.row+factor, currentPosition.col+columnChange);  
-                        const targetSquare = board.getPiece(newPos); 
                         const opponentOrigin = Square.at(currentPosition.row+2*factor, currentPosition.col+columnChange); // where opponent piece moved from
-                        if (targetSquare === undefined && opponentOrigin.equals(board.previousMove[0]) && possibleOpponenetSquare.equals(board.previousMove[1])){
+                        if (!board.squareIsOccupied(newPos) && opponentOrigin.equals(board.previousMove[0]) && possibleOpponenetSquare.equals(board.previousMove[1])){
                                 newPosition.push(newPos);
                         }
                     }

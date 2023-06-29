@@ -2,6 +2,7 @@ import Player from './player';
 import GameSettings from './gameSettings';
 import Square from './square';
 import Piece from './pieces/piece';
+import King from './pieces/king';
 
 export default class Board {
     public currentPlayer: Player;
@@ -46,6 +47,16 @@ export default class Board {
         const row = square.row;
         const column = square.col;
         return row >= 0 && column >= 0 && row <= 7 && column <= 7;
+    }
+
+    public squareIsOccupied(position: Square){
+        const possiblePiece = this.getPiece(position);
+        return possiblePiece !== undefined
+    }
+
+    public squareHasCapturablePiece(position: Square){
+        const possiblePiece = this.getPiece(position);
+        return possiblePiece!.player !== this.currentPlayer && !(possiblePiece instanceof King);
     }
 
     private createBoard() {
