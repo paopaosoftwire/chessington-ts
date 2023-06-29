@@ -99,8 +99,6 @@ describe('Pawn', () => {
             moves.should.deep.include(Square.at(5, 5));
         })
 
-        // TODO: Add test for no longer piece after en passanted
-
         it('cannot en passant if other moves made in between', () => {
             const pawn = new Pawn(Player.WHITE);
             const pawn2 = new Pawn(Player.WHITE);
@@ -124,6 +122,23 @@ describe('Pawn', () => {
             const moves = pawn.getAvailableMoves(board);
 
             moves.should.not.deep.include(Square.at(5,5));
+        })
+
+        it('opponent pawn is no longer a piece after en passant', () => {
+            const pawn = new Pawn(Player.WHITE);
+            const opposingPawn = new Pawn(Player.BLACK);
+            board.setPiece(Square.at(4, 4), pawn);
+            board.setPiece(Square.at(6, 5), opposingPawn);
+
+            board.currentPlayer = Player.BLACK;
+            opposingPawn.moveTo(board, Square.at(4, 5));
+
+            board.currentPlayer = Player.WHITE;
+            pawn.moveTo(board, Square.at(5,5));
+            board.currentPlayer = Player.BLACK;
+            const moves = opposingPawn.getAvailableMoves(board);
+
+            moves.should.have.length(0);
         })
     });
 
@@ -242,6 +257,23 @@ describe('Pawn', () => {
             const moves = pawn.getAvailableMoves(board);
     
             moves.should.not.deep.include(Square.at(2,5));
+        })
+    
+        it('opponent pawn is no longer a piece after en passant', () => {
+            const pawn = new Pawn(Player.BLACK);
+            const opposingPawn = new Pawn(Player.WHITE);
+            board.setPiece(Square.at(3, 4), pawn);
+            board.setPiece(Square.at(1,5), opposingPawn);
+
+            board.currentPlayer = Player.WHITE;
+            opposingPawn.moveTo(board, Square.at(3, 5));
+
+            board.currentPlayer = Player.BLACK;
+            pawn.moveTo(board, Square.at(2,5));
+            board.currentPlayer = Player.WHITE;
+            const moves = opposingPawn.getAvailableMoves(board);
+
+            moves.should.have.length(0);
         })
     });
 
