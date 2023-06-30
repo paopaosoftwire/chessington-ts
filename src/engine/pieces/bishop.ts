@@ -9,13 +9,13 @@ export default class Bishop extends Piece {
         super(player);
     }
 
-    public getAvailableMoves(board: Board) {
+    public getAvailableMoves(board: Board, captureKing = false) {
         const currentPosition = board.findPiece(this); // returns Square.at(row, col)
 
-        return this.helpGetAvailableMoves(currentPosition, board);
+        return this.helpGetAvailableMoves(currentPosition, board, captureKing);
     }
 
-    public helpGetAvailableMoves(currentPosition: Square, board:Board){
+    public helpGetAvailableMoves(currentPosition: Square, board:Board, captureKing = false){
         let newPosition = [];
         const ourPlayer = this.player;
 
@@ -36,7 +36,7 @@ export default class Bishop extends Piece {
 
         function checkPiece(position: Square){
             if (board.squareIsOccupied(position)){
-                if (board.squareHasCapturablePiece(position)){
+                if (board.squareHasCapturablePiece(position, captureKing)){
                     newPosition.push(position);
                 }
                 return true;

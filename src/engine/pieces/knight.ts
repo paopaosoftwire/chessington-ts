@@ -9,7 +9,7 @@ export default class Knight extends Piece {
         super(player);
     }
 
-    public getAvailableMoves(board: Board) {
+    public getAvailableMoves(board: Board, captureKing = false) {
         const currentPosition = board.findPiece(this);
         let newPosition = [];
 
@@ -23,7 +23,7 @@ export default class Knight extends Piece {
             const newCol = currentCol+factor[1];
             const newPos = Square.at(newRow, newCol);
             if (board.isInBoard(newPos)){
-                if (board.squareIsOccupied(newPos) && board.squareHasCapturablePiece(newPos) || !board.squareIsOccupied(newPos)){
+                if (board.squareIsOccupied(newPos) && board.squareHasCapturablePiece(newPos, captureKing) || !board.squareIsOccupied(newPos)){
                     newPosition.push(newPos);
                 }
             }

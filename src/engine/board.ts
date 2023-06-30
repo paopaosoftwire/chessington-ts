@@ -56,9 +56,14 @@ export default class Board {
         return possiblePiece !== undefined
     }
 
-    public squareHasCapturablePiece(position: Square){
+    public squareHasCapturablePiece(position: Square, captureKing = false){
         const possiblePiece = this.getPiece(position);
-        return possiblePiece!.player !== this.currentPlayer && !(possiblePiece instanceof King);
+        if (captureKing) {
+            return possiblePiece!.player !== this.currentPlayer;
+        }
+        else {
+            return possiblePiece!.player !== this.currentPlayer && !(possiblePiece instanceof King);
+        }
     }
 
     public rookInStartingPosition(){

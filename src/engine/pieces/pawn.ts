@@ -10,7 +10,7 @@ export default class Pawn extends Piece {
         super(player);
     }
 
-    public getAvailableMoves(board: Board) {
+    public getAvailableMoves(board: Board, captureKing = false) {
         const currentPosition = board.findPiece(this); // returns Square.at(row, col)
         let newPosition = [];
         let factor = 1;
@@ -41,7 +41,7 @@ export default class Pawn extends Piece {
         for (const columnChange of leftRight){
             const newPos = Square.at(currentPosition.row + factor, currentPosition.col + columnChange);
             if (board.isInBoard(newPos)) {
-                if (board.squareIsOccupied(newPos) && board.squareHasCapturablePiece(newPos)){
+                if (board.squareIsOccupied(newPos) && board.squareHasCapturablePiece(newPos, captureKing)){
                     newPosition.push(newPos);
                 }
             }

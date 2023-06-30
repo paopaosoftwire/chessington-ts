@@ -8,13 +8,13 @@ export default class Rook extends Piece {
         super(player);
     }
 
-    public getAvailableMoves(board: Board): Square[] {
+    public getAvailableMoves(board: Board, captureKing = false): Square[] {
         const currentPosition = board.findPiece(this);
 
-        return this.helpGetAvailableMoves(currentPosition, board);
+        return this.helpGetAvailableMoves(currentPosition, board, captureKing);
     }
 
-    public helpGetAvailableMoves(currentPosition: Square, board:Board): Square[] {
+    public helpGetAvailableMoves(currentPosition: Square, board:Board, captureKing = false): Square[] {
         let newPosition = [];
         const ourPlayer = this.player;
 
@@ -35,7 +35,7 @@ export default class Rook extends Piece {
 
         function checkPiece(position: Square){
             if (board.squareIsOccupied(position)){
-                if (board.squareHasCapturablePiece(position)){
+                if (board.squareHasCapturablePiece(position, captureKing)){
                     newPosition.push(position);
                 }
                 return true;
