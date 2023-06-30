@@ -161,4 +161,32 @@ describe('King', () => {
 
         moves.should.not.deep.include(Square.at(0,2));
     })
+
+    it("rook in correct position after king side castle", () => {
+        const king = new King(Player.WHITE);
+        const rook = new Rook(Player.WHITE);
+        board.setPiece(Square.at(0,4), king);
+        board.setPiece(Square.at(0,7), rook);
+
+        king.moveTo(board, Square.at(0,6));
+
+        const piece = board.getPiece(Square.at(0,5));
+
+        (piece instanceof Rook).should.be.true;
+
+    })
+
+    it("rook in correct position after queen side castle", () => {
+        const king = new King(Player.WHITE);
+        const rook = new Rook(Player.WHITE);
+        board.setPiece(Square.at(0,4), king);
+        board.setPiece(Square.at(0,0), rook);
+
+        king.moveTo(board, Square.at(0,2));
+
+        const piece = board.getPiece(Square.at(0,3));
+
+        (piece instanceof Rook).should.be.true;
+
+    })
 });
