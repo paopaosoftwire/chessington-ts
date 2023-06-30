@@ -36,7 +36,7 @@ export default class Board {
     }
 
     public movePiece(fromSquare: Square, toSquare: Square) {
-        const movingPiece = this.getPiece(fromSquare);        
+        const movingPiece = this.getPiece(fromSquare);
         if (!!movingPiece && movingPiece.player === this.currentPlayer) {
             this.setPiece(toSquare, movingPiece);
             this.setPiece(fromSquare, undefined);
@@ -81,6 +81,36 @@ export default class Board {
             }
         }
         return allRooksInStartingPosition;
+    }
+
+    public getAllOpponentPieces(): Piece[] {
+        const piecesOnBoard: Piece[] = []
+        for (let row = 0; row < this.board.length; row++) {
+            for (let col = 0; col < this.board[row].length; col++) {
+                // Get a piece
+                const piece = this.getPiece(Square.at(row, col));
+                // Check if there is a piece if yes push to array
+                if (piece !== undefined && piece.player === this.currentPlayer) piecesOnBoard.push(piece);
+            }
+        }
+        return piecesOnBoard
+    }
+
+    public getKing() {
+        for (const piece of this.getAllOpponentPieces()) {
+            if (piece instanceof King) {
+                return piece
+            }
+        }
+    }
+
+    public checkCheck() {
+        for (const piece of this.getAllOpponentPieces()) {
+            if (piece instanceof King) {
+                continue;
+            }
+            const availableMoves = piece.getAvailableMoves(this, true);
+        }
     }
 
     private createBoard() {

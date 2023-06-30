@@ -10,14 +10,14 @@ export default class Queen extends Piece {
         super(player);
     }
 
-    public getAvailableMoves(board: Board) {
+    public getAvailableMoves(board: Board, captureKing = false) {
         const currentPosition = board.findPiece(this); // returns Square.at(row, col)
 
         const dummyBishop = new Bishop(this.player);
         const dummyRook = new Rook(this.player);
 
-        const diagonalMoves = dummyBishop.helpGetAvailableMoves(currentPosition, board);
-        const lateralMoves = dummyRook.helpGetAvailableMoves(currentPosition, board);
+        const diagonalMoves = dummyBishop.helpGetAvailableMoves(currentPosition, board, captureKing);
+        const lateralMoves = dummyRook.helpGetAvailableMoves(currentPosition, board, captureKing);
 
         return diagonalMoves.concat(lateralMoves);
     }

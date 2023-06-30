@@ -79,6 +79,17 @@ describe('Rook', () => {
         moves.should.not.deep.include(Square.at(4, 6));
     });
 
+    it('can take the opposing king with boolean flag', () => {
+        const rook = new Rook(Player.WHITE);
+        const opposingKing = new King(Player.BLACK);
+        board.setPiece(Square.at(4, 4), rook);
+        board.setPiece(Square.at(4, 6), opposingKing);
+
+        const moves = rook.getAvailableMoves(board, true);
+
+        moves.should.deep.include(Square.at(4, 6));
+    });
+
     it('cannot take friendly pieces', () => {
         const rook = new Rook(Player.WHITE);
         const friendlyPiece = new Pawn(Player.WHITE);
