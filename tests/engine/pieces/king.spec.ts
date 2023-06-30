@@ -189,4 +189,19 @@ describe('King', () => {
         (piece instanceof Rook).should.be.true;
 
     })
+
+    it("rook in correct position after queen side castle black pieces", () => {
+        board.currentPlayer = Player.BLACK;
+        const king = new King(Player.BLACK);
+        const rook = new Rook(Player.BLACK);
+        board.setPiece(Square.at(7,4), king);
+        board.setPiece(Square.at(7,0), rook);
+
+        king.moveTo(board, Square.at(7,2));
+
+        const piece = board.getPiece(Square.at(7, 3));
+
+        (piece instanceof Rook).should.be.true;
+
+    })
 });

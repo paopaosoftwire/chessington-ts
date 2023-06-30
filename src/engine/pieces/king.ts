@@ -1,5 +1,6 @@
 import Piece from './piece';
 import Player from '../player';
+import player from '../player';
 import Board from '../board';
 import Square from "../square";
 import Rook from "./rook";
@@ -61,5 +62,26 @@ export default class King extends Piece {
             }
         }
         return newPosition;
+    }
+
+    public moveTo(board: Board, newSquare: Square) {
+        const startingSquare = board.findPiece(this);
+        super.moveTo(board, newSquare);
+        if (Math.abs(newSquare.col - startingSquare.col) === 2) {
+
+            let rookRow: number;
+            let rookEndCol: number;
+            let rookStartCol: number;
+
+            // Figure out which rook needs to move
+            (this.player === player.WHITE)? rookRow = 0: rookRow = 7;
+            (newSquare.col === 2)? rookEndCol = 3: rookEndCol = 5;
+            (newSquare.col === 2)? rookStartCol = 0: rookStartCol = 7;
+
+            // Move the rook
+            const rook = board.getPiece(Square.at(rookRow, rookStartCol));
+            (board.currentPlayer === player.WHITE) ? board.currentPlayer = player.BLACK : board.currentPlayer = player.WHITE;
+            rook!.moveTo(board, Square.at(rookRow, rookEndCol));
+        }
     }
 }
