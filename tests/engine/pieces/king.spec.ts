@@ -5,6 +5,7 @@ import Square from '../../../src/engine/square';
 import Pawn from '../../../src/engine/pieces/pawn';
 import Rook from "../../../src/engine/pieces/rook";
 import Bishop from "../../../src/engine/pieces/bishop";
+import Queen from "../../../src/engine/pieces/queen";
 
 describe('King', () => {
     let board: Board;
@@ -203,5 +204,72 @@ describe('King', () => {
 
         (piece instanceof Rook).should.be.true;
 
+    })
+
+    it('Check that king cannot move into check', () => {
+        const bishop = new Bishop(Player.WHITE);
+        const king = new King(Player.WHITE);
+        const opposingQueen = new Queen(Player.BLACK);
+        board.setPiece(Square.at(4, 0), bishop);
+        board.setPiece(Square.at(0, 7), king);
+        board.setPiece(Square.at(7, 7), opposingQueen);
+
+        const moves = bishop.getAvailableMoves(board);
+
+        moves.should.have.length(0);
+    });
+
+    it('Check that piece cannot move when king is in check', () => {
+        const bishop = new Bishop(Player.WHITE);
+        const king = new King(Player.WHITE);
+        const opposingQueen = new Queen(Player.BLACK);
+        board.setPiece(Square.at(4, 0), bishop);
+        board.setPiece(Square.at(0, 7), king);
+        board.setPiece(Square.at(7, 7), opposingQueen);
+
+        const moves = bishop.getAvailableMoves(board);
+
+        moves.should.have.length(0);
+    });
+
+    it('Check that piece can only move to block check when king is in check', () => {
+        const bishop = new Bishop(Player.WHITE);
+        const king = new King(Player.WHITE);
+        const opposingQueen = new Queen(Player.BLACK);
+        board.setPiece(Square.at(0, 4), bishop);
+        board.setPiece(Square.at(0, 7), king);
+        board.setPiece(Square.at(7, 7), opposingQueen);
+
+        const moves = bishop.getAvailableMoves(board);
+
+        moves.should.have.length(1);
+        moves.should.deep.include(Square.at(3, 7));
+    });
+
+    it('check that piece can take piece currently checking the king', () => {
+        const bishop = new Bishop(Player.WHITE);
+        const king = new King(Player.WHITE);
+        const opposingQueen = new Queen(Player.BLACK);
+        board.setPiece(Square.at(0, 0), bishop);
+        board.setPiece(Square.at(0, 7), king);
+        board.setPiece(Square.at(7, 7), opposingQueen);
+
+        const moves = bishop.getAvailableMoves(board);
+
+        moves.should.have.length(1);
+        moves.should.deep.include(Square.at(7, 7));
+    })
+
+    it('check that pinned piece cannot move', () => {
+        const bishop = new Bishop(Player.WHITE);
+        const king = new King(Player.WHITE);
+        const opposingQueen = new Queen(Player.BLACK);
+        board.setPiece(Square.at(6, 7), bishop);
+        board.setPiece(Square.at(0, 7), king);
+        board.setPiece(Square.at(7, 7), opposingQueen);
+
+        const moves = bishop.getAvailableMoves(board);
+
+        moves.should.have.length(0);
     })
 });

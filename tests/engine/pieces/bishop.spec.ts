@@ -4,6 +4,7 @@ import Player from '../../../src/engine/player';
 import Square from '../../../src/engine/square';
 import Pawn from '../../../src/engine/pieces/pawn';
 import King from '../../../src/engine/pieces/king';
+import Queen from "../../../src/engine/pieces/queen";
 
 describe('Bishop', () => {
     let board: Board;
